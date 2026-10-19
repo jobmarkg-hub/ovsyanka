@@ -11,6 +11,30 @@
     "electron:dev": "ELECTRON=true vite",
     "electron:build": "ELECTRON=true vite build && electron-builder"
   },
+  "build": {
+    "appId": "ai.ovsyanka.app",
+    "productName": "Ovsyanka",
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Ovsyanka requires microphone access to transcribe your speech during meetings.",
+        "NSScreenCaptureUsageDescription": "Ovsyanka uses ScreenCaptureKit to record meeting audio locally without bots."
+      }
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ]
+  },
   "dependencies": {
     "@tiptap/extension-placeholder": "^3.32.0",
     "@tiptap/pm": "^3.32.0",
@@ -31,6 +55,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "autoprefixer": "^10.6.1",
     "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
     "postcss": "^8.5.31",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
