@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+backend/.venv/
+venv/
+.env
+
+# Build outputs
+dist/
+dist-electron/
+release/
+out/
+
+# Database & local storage
+*.db
+*.sqlite3
+backend/storage/
+*.log
+
+# Cache
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
