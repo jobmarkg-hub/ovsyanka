@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { HomeView } from './components/HomeView';
@@ -7,6 +7,8 @@ import { MyNotesView } from './components/MyNotesView';
 import { GlobalChatView } from './components/GlobalChatView';
 import { IntegrationsModal } from './components/IntegrationsModal';
 import { SecuritySettingsModal } from './components/SecuritySettingsModal';
+import { AudioPermissionsModal } from './components/AudioPermissionsModal';
+import { MeetingDetectedBanner } from './components/MeetingDetectedBanner';
 import { useAppStore } from './store/useAppStore';
 
 export const App: React.FC = () => {
@@ -16,9 +18,19 @@ export const App: React.FC = () => {
     meetings,
     isIntegrationsModalOpen,
     isSecurityModalOpen,
+    isPermissionsModalOpen,
     toggleIntegrationsModal,
     toggleSecurityModal,
+    togglePermissionsModal,
   } = useAppStore();
+
+  useEffect(() => {
+    // Show permissions prompt if not onboarded yet
+    const onboarded = localStorage.getItem('ovsyanka_permissions_onboarded');
+    if (!onboarded) {
+      togglePermissionsModal(true);
+    }
+  }, []);
 
   const currentMeeting = meetings.find((m) => m.id === activeMeetingId) || meetings[0];
 
@@ -51,6 +63,18 @@ export const App: React.FC = () => {
           {renderContent()}
         </div>
       </main>
+
+      {/* Floating Meeting Detector Banner (e.g. Chrome / Google Meet detected) */}
+      <MeetingDetectedBanner appName="Chrome" />
+
+      {/* Global Audio & Permissions Modal */}
+      <AudioPermissionsModal
+        isOpen={isPermissionsModalOpen}
+        onClose={() => togglePermissionsModal(false)}
+        onGrantedAll={() => {
+          localStorage.setItem('ovsyanka_permissions_onboarded', 'true');
+        }}
+      />
 
       {/* Global Integrations Modal */}
       {isIntegrationsModalOpen && (

@@ -28,6 +28,7 @@ interface AppState {
   isWorkspaceMenuOpen: boolean;
   isIntegrationsModalOpen: boolean;
   isSecurityModalOpen: boolean;
+  isPermissionsModalOpen: boolean;
   searchQuery: string;
 
   // Actions
@@ -44,6 +45,7 @@ interface AppState {
   toggleWorkspaceMenu: (open?: boolean) => void;
   toggleIntegrationsModal: (open?: boolean) => void;
   toggleSecurityModal: (open?: boolean) => void;
+  togglePermissionsModal: (open?: boolean) => void;
   setSearchQuery: (query: string) => void;
   addLiveChunk: (chunk: TranscriptChunk) => void;
 }
@@ -74,6 +76,7 @@ export const useAppStore = create<AppState>((set, get) => {
     isWorkspaceMenuOpen: false,
     isIntegrationsModalOpen: false,
     isSecurityModalOpen: false,
+    isPermissionsModalOpen: false,
     searchQuery: '',
 
     setActiveView: (view, spaceId) => {
@@ -224,6 +227,12 @@ export const useAppStore = create<AppState>((set, get) => {
     toggleSecurityModal: (open) => {
       set((state) => ({
         isSecurityModalOpen: open !== undefined ? open : !state.isSecurityModalOpen,
+      }));
+    },
+
+    togglePermissionsModal: (open) => {
+      set((state) => ({
+        isPermissionsModalOpen: open !== undefined ? open : !state.isPermissionsModalOpen,
       }));
     },
 

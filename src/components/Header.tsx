@@ -1,9 +1,15 @@
 import React from 'react';
-import { UserPlus, Plus, ChevronLeft, Share2, MoreHorizontal, Lock } from 'lucide-react';
+import { UserPlus, Plus, ChevronLeft, Share2, MoreHorizontal, Lock, Mic } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 
 export const Header: React.FC = () => {
-  const { activeView, setActiveView, createNewMeeting, toggleIntegrationsModal } = useAppStore();
+  const {
+    activeView,
+    setActiveView,
+    createNewMeeting,
+    toggleIntegrationsModal,
+    togglePermissionsModal,
+  } = useAppStore();
 
   if (activeView === 'meeting') {
     return (
@@ -17,6 +23,14 @@ export const Header: React.FC = () => {
         </button>
 
         <div className="flex items-center space-x-2">
+          <button
+            onClick={() => togglePermissionsModal(true)}
+            className="flex items-center space-x-1.5 px-2.5 py-1 text-xs text-textSecondary hover:text-textPrimary bg-black/5 hover:bg-black/10 rounded-md transition"
+            title="Audio & Microphone Settings"
+          >
+            <Mic size={13} className="text-emerald-600" />
+            <span>Audio</span>
+          </button>
           <button className="p-1.5 text-textSecondary hover:text-textPrimary hover:bg-black/5 rounded-md transition">
             <MoreHorizontal size={16} />
           </button>
@@ -34,6 +48,14 @@ export const Header: React.FC = () => {
 
   return (
     <header className="h-14 px-8 flex items-center justify-end space-x-3 bg-background">
+      <button
+        onClick={() => togglePermissionsModal(true)}
+        className="flex items-center space-x-1.5 px-3 py-1.5 text-xs text-textPrimary hover:bg-black/5 rounded-lg transition font-medium border border-borderMuted"
+      >
+        <Mic size={14} className="text-emerald-600" />
+        <span>Audio setup</span>
+      </button>
+
       <button className="flex items-center space-x-1.5 px-3 py-1.5 text-xs text-textPrimary hover:bg-black/5 rounded-lg transition font-medium border border-borderMuted">
         <UserPlus size={14} className="text-textSecondary" />
         <span>Invite</span>
